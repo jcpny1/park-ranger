@@ -1,6 +1,6 @@
 {
   "name": "dotenvs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Load dotenv with environment name",
   "main": "index.js",
   "author": "Mark McLeod Hendrickson <markmhendrickson@gmail.com> (http://markmhendrickson.com)",
