@@ -1,11 +1,12 @@
 {
-  "name": "dotenvs",
-  "version": "1.0.1",
-  "description": "Load dotenv with environment name",
-  "main": "index.js",
   "author": "Mark McLeod Hendrickson <markmhendrickson@gmail.com> (http://markmhendrickson.com)",
-  "license": "MIT",
   "dependencies": {
-    "dotenv": "^4.0.0"
-  }
+    "dotenv": "^4.0.0",
+    "path": "^0.12.7"
+  },
+  "description": "Load dotenv with environment name",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "dotenvs",
+  "version": "1.0.2"
 }
