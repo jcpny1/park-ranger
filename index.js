@@ -17,7 +17,7 @@ module.exports = (name, returnObject) => {
   var path = Path.resolve(__dirname, '../../.env' + suffix);
 
   if (!fs.existsSync(path)) {
-    throw new Error(`Environment variables file does not exist at path: ${path}`);
+    return;
   }
 
   if (returnObject) {
