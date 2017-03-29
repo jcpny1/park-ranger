@@ -17,7 +17,7 @@ module.exports = (name, returnObject) => {
   var path = Path.resolve(__dirname, '../../.env' + suffix);
 
   if (!fs.existsSync(path)) {
-    return;
+    return returnObject ? Object.assign({}, process.env) : undefined;
   }
 
   if (returnObject) {
