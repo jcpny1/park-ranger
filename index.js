@@ -21,7 +21,7 @@ module.exports = (name, returnObject) => {
   }
 
   if (returnObject) {
-    return dotenv.parse(fs.readFileSync(path));
+    return Object.assign({}, dotenv.parse(fs.readFileSync(path)), process.env);
   } else {
     dotenv.config({ path: path });
   }
