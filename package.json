@@ -1,12 +1,13 @@
 {
   "author": "Mark McLeod Hendrickson <markmhendrickson@gmail.com> (http://markmhendrickson.com)",
   "dependencies": {
+    "debug": "^2.6.3",
     "dotenv": "^4.0.0",
     "path": "^0.12.7"
   },
-  "description": "Load dotenv with environment name",
+  "description": "Establish and manage environment-specific variables, settings and resources",
   "license": "MIT",
   "main": "index.js",
-  "name": "dotenvs",
-  "version": "1.0.5"
+  "name": "park-ranger",
+  "version": "1.0.6"
 }
