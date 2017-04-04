@@ -58,7 +58,7 @@ WHIZ=BANG
 ```
 var ranger = require('park-ranger')();
 console.log(ranger.env.FOO);
-console.log(process.env.DOOP); 
+console.log(process.env.WHIZ);
 ```
 
 ##### command
