@@ -1,5 +1,5 @@
 /**
- * Establish and manage environment-specific variables, settings and resources
+ * Manager for environment variables, configuration files and SSL certificate files.
  * @module
  */
 
@@ -9,12 +9,11 @@ var fs = require('fs');
 var Path = require('path');
 
 /** 
- * Return park ranger with loaded cert, config and env properties properties
- * @param {string} [envName] - Name of environment. Used to suffix files with preceding dash (e.g. ".env-test"). If null, files without suffix will be used.
+ * Return park ranger with loaded cert, config and env properties
  * @param {boolean} [localEnv] - Whether to just return environment variables and not apply them to process.env as well
  */
-module.exports = (envName, localEnv) => {
-  envName = envName ? envName : process.env.ENV_NAME;
+module.exports = (localEnv) => {
+  var envName = process.env.ENV_NAME;
 
   var envPath = function(filename, extension) {
     var suffix = envName ? '-' + envName : '';
@@ -28,7 +27,7 @@ module.exports = (envName, localEnv) => {
       var path = envPath('.env');
 
       if (fs.existsSync(path)) {
-        this.env = Object.assign({}, dotenv.parse(fs.readFileSync(path)), process.env);
+        this.env = Object.assign({}, process.env, dotenv.parse(fs.readFileSync(path)));
 
         if (!localEnv) {
           dotenv.config({ path: path });
@@ -39,34 +38,32 @@ module.exports = (envName, localEnv) => {
     },
 
     loadCert: function() {
-      var ca, cert, key,
-          path = envPath('.cert'),
-          caPath = Path.resolve(path, 'ca'),
-          certPath = Path.resolve(path, 'crt'),
-          keyPath = Path.resolve(path, 'key');
+      var path = envPath('.cert');
 
-      if (!fs.existsSync(keyPath)) {
-        debug('failed to find a SSL key file for certificate');
-      } else {
-        ca = fs.readFileSync(caPath, 'utf8');
-      }
+      var loadCertFile = function(name, filenames) {
+        var file;
 
-      if (!fs.existsSync(certPath)) {
-        debug('failed to find a SSL certificate file for certificate');
-      } else {
-        cert = fs.readFileSync(certPath, 'utf8');
-      }
+        filenames.forEach((filename) => {
+          var filePath = Path.resolve(path, filename);
+          debug('filePath', filePath);
 
-      if (!fs.existsSync(caPath)) {
-        debug('failed to find a SSL intermediate CA certificate file for certificate');
-      } else {
-        key = fs.readFileSync(keyPath, 'utf8');
-      }
+          if (fs.existsSync(filePath)) {
+            debug('loading %s for %s', filePath, name);
+            file = fs.readFileSync(filePath, 'utf8');
+          }
+        });
+
+        if (!file) {
+          debug('failed to find a %s file for certificate', name);
+        }
+
+        return file;
+      };
 
       this.cert = {
-        ca: ca,
-        cert: cert,
-        key: key,
+        ca: loadCertFile('SSL intermediate CA', ['ca', 'chain.pem']),
+        cert: loadCertFile('SSL certificate', ['crt', 'cert.pem']),
+        key: loadCertFile('SSL key', ['key', 'privkey.pem']),
       };
     },
 

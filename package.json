@@ -5,9 +5,9 @@
     "dotenv": "^4.0.0",
     "path": "^0.12.7"
   },
-  "description": "Establish and manage environment-specific variables, settings and resources",
+  "description": "Manager for environment variables, configuration files and SSL certificate files.",
   "license": "MIT",
   "main": "index.js",
   "name": "park-ranger",
-  "version": "1.0.6"
+  "version": "1.0.7"
 }
