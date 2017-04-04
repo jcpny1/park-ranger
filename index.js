@@ -30,7 +30,7 @@ module.exports = (localEnv) => {
         this.env = Object.assign({}, process.env, dotenv.parse(fs.readFileSync(path)));
 
         if (!localEnv) {
-          dotenv.config({ path: path });
+          dotenv.config({ path: path });
         }
       } else {
         this.env = Object.assign({}, process.env);
@@ -63,7 +63,7 @@ module.exports = (localEnv) => {
       this.cert = {
         ca: loadCertFile('SSL intermediate CA', ['ca', 'chain.pem']),
         cert: loadCertFile('SSL certificate', ['crt', 'cert.pem']),
-        key: loadCertFile('SSL key', ['key', 'privkey.pem']),
+        key: loadCertFile('SSL key', ['key', 'privkey.pem'])
       };
     },
 
