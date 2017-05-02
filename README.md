@@ -42,7 +42,7 @@ Environment variable files can be made available in [INI format](https://en.wiki
 
 Variables already available in the environment will be preserved in `process.env` with precedence over those in the file. They will also be made available in the `env` property of the ranger.
 
-If the ranger is loaded with `false` as a parameter, then the environment variables will *not* be applied automatically to `process.env` but just the `env` property of the ranger. This is useful for accessing the environment variables in a task runner but not incurring the unintended consequence of setting them prematurely for tasks themselves.
+If the ranger is loaded with `true` as a parameter, then the environment variables will *not* be applied automatically to `process.env` but just the `env` property of the ranger. This is useful for accessing the environment variables in a task runner but not incurring the unintended consequence of setting them prematurely for tasks themselves.
 
 #### Example #1 – no ENV_NAME
 
@@ -122,7 +122,7 @@ WHIZ=BANG
 ##### index.js file
 
 ```
-var ranger = require('park-ranger')(false);
+var ranger = require('park-ranger')(true);
 console.log(ranger.env.FOO);
 console.log(process.env.FOO);
 console.log(ranger.env.ENV_NAME);

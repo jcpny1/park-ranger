@@ -9,5 +9,9 @@
   "license": "MIT",
   "main": "index.js",
   "name": "park-ranger",
-  "version": "1.0.8"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markmhx/park-ranger.git"
+  },
+  "version": "1.0.10"
 }
