@@ -40,7 +40,7 @@ The name will be used to determine the files that Park Ranger attempts to locate
 
 Environment variable files can be made available in [INI format](https://en.wikipedia.org/wiki/INI_file). By default, all variables found in these files will be applied automatically to `process.env` upon load of Park Ranger as a module. They will also be made available as the `env` property of the ranger.
 
-Variables already available in the environment will be preserved in `process.env` with precedence over those in the file. They will also be made available in the `env` property of the ranger.
+Variables already available in `process.env` will be overwritten by any of those in the file with the same name. All variables will also be made available in the `env` property of the ranger.
 
 If the ranger is loaded with `true` as a parameter, then the environment variables will *not* be applied automatically to `process.env` but just the `env` property of the ranger. This is useful for accessing the environment variables in a task runner but not incurring the unintended consequence of setting them prematurely for tasks themselves.
 

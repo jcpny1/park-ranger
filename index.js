@@ -8,6 +8,40 @@ var dotenv = require('dotenv');
 var fs = require('fs');
 var Path = require('path');
 
+/*
+ * Apply options to process.env, overwriting existing values.
+ * Adapted from dotenv to allow overwriting.
+ * @see https://github.com/motdotla/dotenv/blob/master/lib/main.js#L45
+ * @param {Object} options - valid options: path ('.env'), encoding ('utf8')
+ * @returns {Boolean}
+ */
+var configEnv = function(options) {
+  var path = '.env'
+  var encoding = 'utf8'
+
+  if (options) {
+    if (options.path) {
+      path = options.path
+    }
+    if (options.encoding) {
+      encoding = options.encoding
+    }
+  }
+
+  try {
+    // specifying an encoding returns a string instead of a buffer
+    var parsedObj = dotenv.parse(fs.readFileSync(path, { encoding: encoding }));
+
+    Object.keys(parsedObj).forEach(function(key) {
+      process.env[key] = parsedObj[key]
+    })
+
+    return { parsed: parsedObj }
+  } catch (e) {
+    return { error: e }
+  }
+};
+
 /** 
  * Return park ranger with loaded cert, config and env properties
  * @param {boolean} [localEnv] - Whether to just return environment variables and not apply them to process.env as well
@@ -30,7 +64,7 @@ module.exports = (localEnv) => {
         this.env = Object.assign({}, process.env, dotenv.parse(fs.readFileSync(path)));
 
         if (!localEnv) {
-          dotenv.config({ path: path });
+          configEnv({ path: path });
         }
       } else {
         this.env = Object.assign({}, process.env);
