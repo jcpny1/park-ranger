@@ -79,7 +79,6 @@ module.exports = (localEnv) => {
 
         filenames.forEach((filename) => {
           var filePath = Path.resolve(path, filename);
-          debug('filePath', filePath);
 
           if (fs.existsSync(filePath)) {
             debug('loading %s for %s', filePath, name);
